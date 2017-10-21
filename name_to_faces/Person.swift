@@ -10,7 +10,7 @@ import UIKit
 
 class Person: NSObject {
     var name: String
-    var image: Sring
+    var image: String
 
     init(name: String, image: String) {
         self.name = name
