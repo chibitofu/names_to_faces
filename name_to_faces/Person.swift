@@ -8,6 +8,7 @@
 
 import UIKit
 
+//Custom object to hold invidiual pictures attributes.
 class Person: NSObject {
     var name: String
     var image: String
