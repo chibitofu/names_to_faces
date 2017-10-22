@@ -43,7 +43,9 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         return documentsDirectory
     }
     
+    //Called by the nav button "+".
     @objc func addNewPerson() {
+        //Built in class to access the users camera roll.
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.delegate = self
@@ -86,16 +88,22 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let person = people[indexPath.item]
         
+        //Creates a new alert to rename a picture.
         let ac = UIAlertController(title: "Rename person", message: nil, preferredStyle: .alert)
+        
+        //Adds a text field to write the new name.
         ac.addTextField()
         
+        //Adds "Cancel" button to alert.
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
+        //Updates the pictures atrributes up on tapping "OK".
         ac.addAction(UIAlertAction(title: "OK", style: .default) {
             [unowned self, ac] _ in
             let newName = ac.textFields![0]
             person.name = newName.text!
             
+            //Reloads view to show updated name.
             self.collectionView?.reloadData()
         })
     
@@ -105,7 +113,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //Adds a "+" button to the nav bar.
+        //Adds a "+" button to the nav bar, and call the function addNewPerson.
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
     }
 
