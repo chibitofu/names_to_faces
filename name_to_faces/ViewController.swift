@@ -10,26 +10,34 @@ import UIKit
 
 class ViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    //Array of pictures.
     var people = [Person]()
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         guard let image = info[UIImagePickerControllerEditedImage] as? UIImage else { return }
         
+        //Generates a Universal Unique ID, and turns it into a string.
         let imageName = UUID().uuidString
+        
+        //Creates a new path in the documents directory based on the imageName.
         let imagePath = getDocumentsDirectory().appendingPathComponent(imageName)
         
+        //Turns the image into a jpeg and sets it's quality to 80 out of 100.
         if let jpegData = UIImageJPEGRepresentation(image, 80) {
             try? jpegData.write(to: imagePath)
         }
         
-        let person = Person(name: "Unknown", image: imageName)
+        //Adds a new person to the people array, and refreshes the view.
+        let person = Person(name: "\(imageName)", image: imageName)
         people.append(person)
         collectionView?.reloadData()
         
+        //Dismisses the view controller that was presented modally by the view controller.
         dismiss(animated: true)
     }
     
     func getDocumentsDirectory() -> URL {
+        //Gets the path to the users documents directory. Second parameter states that the path is relative to the user's home directory.
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         return documentsDirectory
@@ -94,7 +102,6 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
 
 }
 
