@@ -50,19 +50,29 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         present(picker, animated: true)
     }
     
+    //Sets the number of items in the view to the size of the people array.
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return people.count
     }
     
+    //Cycles through all the items in the view, and assigns them a picture.
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        //Creates a new cell based on the PersonCell class we created.
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Person", for: indexPath) as! PersonCell
+        
         let person = people[indexPath.item]
         
+        //Assigns the cell name that we created in imagePickerController using UUID.
         cell.name.text = person.name
         
+        //Grabs the path to the image that we created in imagePickerController.
         let path = getDocumentsDirectory().appendingPathComponent(person.image)
+        
+        //Assigns the cell view to the jpeg picture.
         cell.imageView.image = UIImage(contentsOfFile: path.path)
         
+        //Styling for each cell.
         cell.imageView.layer.borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.3)
 .cgColor
         cell.imageView.layer.borderWidth = 2
@@ -72,6 +82,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         return cell
     }
     
+    //Allows users to remane individual pictures.
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let person = people[indexPath.item]
         
@@ -94,13 +105,12 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //Adds a "+" button to the nav bar.
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
 }
