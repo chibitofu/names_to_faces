@@ -112,7 +112,8 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = "Name to Faces"
         //Adds a "+" button to the nav bar, and call the function addNewPerson.
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
     }
